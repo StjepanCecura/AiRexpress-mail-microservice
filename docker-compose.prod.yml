@@ -1,0 +1,18 @@
+version: "3"
+services:
+  mail_service:
+    build: ./
+    volumes:
+      - ./:/app
+      - /app/node_modules
+    env_file:
+      - ./.env.prod
+    environment:
+      - NODE_ENV=production
+    networks:
+      - network
+    command: npm run start
+networks:
+  network:
+    name: api_network
+    external: true
