@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const { sendMail } = require("./utils/mailer");
 const dotenv = require("dotenv");
+const sendMail = require("./routes/sendMail");
 
 if (process.env.NODE_ENV === "development") {
   dotenv.config({ path: ".env.dev" });
@@ -19,17 +19,7 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
-app.post("/", async (req, res) => {
-  const mailOptions = req.body;
-  console.log("Using mail service: ", process.env.MAIL_HOST);
-  try {
-    sendMail(mailOptions);
-  } catch (error) {
-    res.send(JSON.stringify({ error: error }));
-  }
-
-  res.send(JSON.stringify({ message: "Email verification sent!" }));
-});
+app.post("/", sendMail);
 
 app.listen(port, () => {
   console.log(`User service on port: ${port}`);
