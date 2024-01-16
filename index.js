@@ -17,9 +17,13 @@ if (process.env.NODE_ENV === "development") {
 
 const app = express();
 const port = process.env.PORT;
+const corsOptions = {
+  origin: true,
+  credentials: true,
+};
 
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.post("/", sendMailRoute);
