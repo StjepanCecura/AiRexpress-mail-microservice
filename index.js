@@ -26,5 +26,5 @@ app.post("/", sendMailRoute);
 app.post("/support", sendSupportMailRoute);
 
 app.listen(port, () => {
-  console.log(`User service on port: ${port}`);
+  console.log(`Mail service on port: ${port}`);
 });

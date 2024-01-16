@@ -17,10 +17,10 @@ module.exports = async (req, res) => {
     .then((data) => {
       const userMail = data.user.email;
       const mailOptions = {
-        from: "airwbltim1@gmail.com",
+        from: userMail,
         to: "airwbltim1@gmail.com",
         subject: title,
-        html: `<p>Customer email: ${userMail} <br/> ${body}</p>`,
+        html: `<p>Customer: ${userMail} <br/> ${body}</p>`,
       };
 
       try {
