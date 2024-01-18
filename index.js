@@ -1,7 +1,9 @@
 const express = require("express");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
-const sendMail = require("./routes/sendMail");
+const sendMailRoute = require("./routes/sendMailRoute");
+const sendSupportMailRoute = require("./routes/sendSupportMailRoute");
 
 if (process.env.NODE_ENV === "development") {
   dotenv.config({ path: ".env.dev" });
@@ -15,12 +17,18 @@ if (process.env.NODE_ENV === "development") {
 
 const app = express();
 const port = process.env.PORT;
+const corsOptions = {
+  origin: true,
+  credentials: true,
+};
 
-app.use(cors());
+app.use(cookieParser());
+app.use(cors(corsOptions));
 app.use(express.json());
 
-app.post("/", sendMail);
+app.post("/", sendMailRoute);
+app.post("/support", sendSupportMailRoute);
 
 app.listen(port, () => {
-  console.log(`User service on port: ${port}`);
+  console.log(`Mail service on port: ${port}`);
 });
