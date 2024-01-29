@@ -8,8 +8,8 @@ module.exports = async (req, res) => {
   try {
     sendMail(mailOptions);
   } catch (error) {
-    res.send(JSON.stringify({ error: error }));
+    res.status(501).send(JSON.stringify({ error: error }));
   }
 
-  res.send(JSON.stringify({ message: "Email verification sent!" }));
+  res.status(200).send(JSON.stringify({ message: "Email verification sent!" }));
 };
